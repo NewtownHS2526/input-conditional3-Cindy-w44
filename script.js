@@ -23,9 +23,9 @@
 //   3. The status message area (id="status")
 // --------------------------------------------
 
-const textBox = 
-const outputBox = 
-const statusBox = 
+const textBox = document.querySelector("#user-input");
+const outputBox = document.querySelector("#quiz-outputs");
+const statusBox = document.querySelector("#status");
 
 // This console.log helps us verify our selections worked correctly.
 // Open the browser's Developer Tools (F12) to see the output.
@@ -61,8 +61,8 @@ let pluto = false;
 
 const checkAnswer = () => {
   // Get the current value from the text input
-  
-
+  const currentAnswer = textBox.value;
+  console.log("Checking", currentAnswer);
   // TODO: Create if/else if/else statements to check for each planet.
   // For each correct answer:
   //   1. Add an <h3> with the planet name and a <p> with a fun fact
@@ -71,27 +71,37 @@ const checkAnswer = () => {
   //   - Display an error message in the statusBox
 
   if (currentAnswer === "Mercury") {
-
+    outputBox.innerHTML += `<p>Mercury is the smallest, fastest, and closest planet to the Sun in our solar system, with a heavily cratered, moon-like surface.</p>`;
+    score += 1;
   } else if (currentAnswer === "Venus") {
-
+    outputBox.innerHTML += `<p>Venus is Earth's "evil twin"—a world that is roughly the same size as our own but with a hellish environment where lead would melt like ice.</p>`;
+    score += 1;
   } else if (currentAnswer === "Earth") {
-
+    outputBox.innerHTML += `<p>Earth is far from just a "big rock"—it is a dynamic, shifting, and surprisingly fast-moving planet.</p>`;
+    score += 1;
   } else if (currentAnswer === "Mars") {
-
+    outputBox.innerHTML += `<p>Mars is the ultimate adventure destination—a cold, desert world where the scenery is larger than life and the sunsets are truly out of this world.</p>`;
+    score += 1;
   } else if (currentAnswer === "Jupiter") {
-
+    outputBox.innerHTML += `<p>Jupiter is the undisputed king of the solar system—a gas giant so massive it could swallow all the other planets combined and still have room to spare.</p>`;
+    score += 1;
   } else if (currentAnswer === "Saturn") {
-
+    outputBox.innerHTML += `<p>Saturn is famous for its stunning, complex rings, but this gas giant also holds records for being the least dense planet and the current "moon king" of the solar system.</p>`;
+    score += 1;
   } else if (currentAnswer === "Uranus") {
-
+    outputBox.innerHTML += `<p>Uranus is the solar system’s resident "oddball"—an ice giant that refuses to follow the rules of how a planet should behave.</p>`;
+    score += 1;
   } else if (currentAnswer === "Neptune") {
-
+    outputBox.innerHTML += `<p>Neptune is a dark, cold, and supersonic ice giant located 30 times farther from the Sun than Earth.</p>`;
+    score += 1;
   } else if (currentAnswer === "Pluto") {
     // Secret bonus answer - Pluto was reclassified as a dwarf planet in 2006
-  
+    outputBox.innerHTML += `<p>Reclassified as a dwarf planet in 2006, Pluto proved to be far more complex than a "dead rock" when the New Horizons mission flew by in 2015.</p>`;
+    score += 1;
   } else {
     // If no conditions match, show an error message
-  
+    statusBox.innerHTML += `Sorry, but ${currentAnswer} is not a planet.`;
+    score += 1;
   }
 
   // After checking the answer, verify if the game is complete
@@ -115,12 +125,12 @@ const checkAnswer = () => {
 
 const checkScore = () => {
   if (score === 8) {
-   
+    statusBox.innerHTML = "You found all the main planets!";
   }
   if (score === 8 && pluto) {
-    
+    statusBox.innerHTML = "Are you an astronaut??? You found all of them!";
     // Disable the text box since the game is complete
-    
+    textBox.disabled = true;
   }
 };
 
@@ -142,3 +152,8 @@ const checkScore = () => {
 //   - Calls the checkAnswer function when triggered
 // --------------------------------------------
 
+textBox.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    checkAnswer();
+  }
+});
